@@ -29,7 +29,7 @@ public class Tank : NetworkBehaviour {
     [Command]
     void CmdFire()
     {
-        Rigidbody2D bullet = (Rigidbody2D)Instantiate(bulletPrefab, transform.position + transform.up, transform.rotation);
+        Rigidbody2D bullet = (Rigidbody2D)Instantiate(bulletPrefab, transform.position + (transform.up * 1.5f), transform.rotation);
         bullet.velocity = transform.up * 6;
         NetworkServer.Spawn(bullet.gameObject);
         Destroy(bullet.gameObject, 1f);
