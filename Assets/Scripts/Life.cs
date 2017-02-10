@@ -9,6 +9,8 @@ public class Life : NetworkBehaviour {
     [SyncVar(hook = "OnChangeLife")]
     public int life = maxLife;
 
+    public bool destroyOnDeath;
+
     public RectTransform lifeBar;
 
     public void Damage(int damage)
@@ -18,8 +20,14 @@ public class Life : NetworkBehaviour {
         life -= damage;
         if (life <= 0)
         {
-            life = maxLife;
-            RpcRespawn();
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            } else
+            {
+                life = maxLife;
+                RpcRespawn();
+            }
         }
     }
     void OnChangeLife(int life)
