@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Tank : MonoBehaviour {
+public class Tank : NetworkBehaviour {
 
-	// Update is called once per frame
-	void Update () {
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        // Caso não seja o jogador local, não executa a atualização
+        if (!isLocalPlayer) return;
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
